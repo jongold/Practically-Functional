@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:watch": "test -- --watch"
   },
   "repository": {
     "type": "git",
@@ -19,7 +20,20 @@
   "dependencies": {
     "chai": "^3.5.0",
     "data.task": "^3.1.0",
+    "fluture": "^5.0.0",
+    "immutable": "^3.8.1",
     "immutable-ext": "^1.0.3",
     "mocha": "^2.5.3"
+  },
+  "devDependencies": {
+    "babel-jest": "^19.0.0",
+    "babel-preset-airbnb": "^2.2.3",
+    "eslint": "^3.17.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0",
+    "jest": "^19.0.2",
+    "regenerator-runtime": "^0.10.3"
   }
 }

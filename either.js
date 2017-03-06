@@ -1,33 +1,38 @@
-
-const Right = x =>
+export const Right = x =>
 ({
   chain: f => f(x),
   ap: other => other.map(x),
+  alt: other => Right(x),
+  extend: f => f(Right(x)),
+  concat: other =>
+    other.fold(x => other,
+               y => Right(x.concat(y))),
   traverse: (of, f) => f(x).map(Right),
   map: f => Right(f(x)),
-  fold: (f, g) => g(x),
+  fold: (_, g) => g(x),
   inspect: () => `Right(${x})`
 })
 
-const Left = x =>
+export const Left = x =>
 ({
-  chain: f => Left(x),
-  ap: other => Left(x),
-  traverse: (of, f) => of(Left(x)),
-  map: f => Left(x),
-  fold: (f, g) => f(x),
+  chain: _ => Left(x),
+  ap: _ => Left(x),
+  extend: _ => Left(x),
+  alt: other => other,
+  concat: _ => Left(x),
+  traverse: (of, _) => of(Left(x)),
+  map: _ => Left(x),
+  fold: (f, _) => f(x),
   inspect: () => `Left(${x})`
 })
 
-const fromNullable = x =>
+export const fromNullable = x =>
   x != null ? Right(x) : Left(null)
 
-const tryCatch = f => {
+export const tryCatch = f => {
   try {
     return Right(f())
   } catch(e) {
     return Left(e)
   }
 }
-
-module.exports = { Right, Left, fromNullable, tryCatch, of: Right }
